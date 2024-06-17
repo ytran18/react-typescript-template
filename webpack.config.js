@@ -49,11 +49,15 @@ module.exports = (env, argv) => {
                     {
                         loader: 'sass-loader',
                         options: { sourceMap: !isProduction }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: { sourceMap: !isProduction }
                     }
                 ]
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|jpg|gif)$/,
                 use: [
                     {
                     loader: 'file-loader',
@@ -75,16 +79,10 @@ module.exports = (env, argv) => {
                 ]
             },
             {
-                test: /\.svg$/,
-                use: [
-                    {
-                        loader: '@svgr/webpack',
-                        options: {
-                            native: true,
-                        },
-                    },
-                ],
-            }
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                use: ['@svgr/webpack'],
+            },
         ]
         },
 
@@ -96,7 +94,7 @@ module.exports = (env, argv) => {
 
         devServer: {
             hot: true,
-            port: 5500,
+            port: 5000,
             historyApiFallback: true,
             static: {
                 directory: path.resolve(__dirname, 'public', 'index.html'),
