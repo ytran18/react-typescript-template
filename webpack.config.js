@@ -30,6 +30,11 @@ module.exports = (env, argv) => {
                 '@utils': path.resolve(__dirname, './src/utils'),
             }
         },
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+            },
+        },
         entry: ['./src/index.tsx'],
         module: {
         rules: [
